@@ -120,6 +120,18 @@ namespace IngameScript
         private void CreateBlueprints()
         {
             blueprints.Clear();
+
+            // Used to create blueprint recipes in space engineers.
+            /*
+                Format for blue print 
+                
+                blueprints.Add("[Name of blueprint]", new Component(new List<RequiredMaterial>
+                {
+                    new RequiredMaterial("[ingot]", [amount]),
+                }, "[SubID]"));
+
+             */
+
             blueprints.Add("Superconductor", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Gold", 0.67),
