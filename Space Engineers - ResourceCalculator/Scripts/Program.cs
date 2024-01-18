@@ -107,14 +107,19 @@ namespace IngameScript
             // here, which will allow your script to run itself without a 
             // timer block.
 
-            
             Runtime.UpdateFrequency = UpdateFrequency.Update10;
-            lcd = GridTerminalSystem.GetBlockWithName("t_lcd") as IMyTextSurface;
-            cargoContainers = GetCargo();
-            refineries = GetRefineries();
-            assemblers = GetAssemblers();
-            CreateBlueprints();
-            WriteCustomData();
+
+            try { lcd = GridTerminalSystem.GetBlockWithName("[display] LCD") as IMyTextSurface; } 
+            catch { Echo("Missing [display] LCD"); }
+
+            try
+            {
+                cargoContainers = GetCargo();
+                refineries = GetRefineries();
+                assemblers = GetAssemblers();
+                CreateBlueprints();
+                WriteCustomData();
+            } catch { Echo("Missing Refineries, Cargo and assemblers"); }
         }
 
         private void CreateBlueprints()
@@ -496,21 +501,25 @@ namespace IngameScript
 
             if ((updateType & UpdateType.Update10) != 0)
             {
-                string m = "";
-
-                switch (currentState)
+                try
                 {
-                    case States.QueueSelection:
-                        m += SelectOption();
-                        break;
-                    case States.DisplaySelection:
-                        m += CalculateNeedResources(GetOption()) + '\n' + '\n';
-                        m += "to go back use custom data";
-                        break;
-                }
+                    string m = "";
 
-                ReadChoice();
-                lcd.WriteText(m);
+                    switch (currentState)
+                    {
+                        case States.QueueSelection:
+                            m += SelectOption();
+                            break;
+                        case States.DisplaySelection:
+                            m += CalculateNeedResources(GetOption()) + '\n' + '\n';
+                            m += "to go back use custom data";
+                            break;
+                    }
+
+                    ReadChoice();
+                    lcd.WriteText(m);
+                }
+                catch { Echo("ERROR RUNNING"); }
             }
         }
 
