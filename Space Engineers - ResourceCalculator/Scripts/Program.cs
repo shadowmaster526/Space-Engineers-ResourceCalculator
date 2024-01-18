@@ -109,8 +109,10 @@ namespace IngameScript
 
             Runtime.UpdateFrequency = UpdateFrequency.Update10;
 
+            string err = "Missing [display] LCD\n";
+
             try { lcd = GridTerminalSystem.GetBlockWithName("[display] LCD") as IMyTextSurface; } 
-            catch { Echo("Missing [display] LCD"); }
+            catch { }
 
             try
             {
@@ -119,7 +121,7 @@ namespace IngameScript
                 assemblers = GetAssemblers();
                 CreateBlueprints();
                 WriteCustomData();
-            } catch { Echo("Missing Refineries, Cargo and assemblers"); }
+            } catch { Echo(err + "Missing Refineries, Cargo and assemblers"); }
         }
 
         private void CreateBlueprints()
@@ -519,7 +521,7 @@ namespace IngameScript
                     ReadChoice();
                     lcd.WriteText(m);
                 }
-                catch { Echo("ERROR RUNNING"); }
+                catch { lcd?.WriteText("Waiting for refineries\n, assemblers and cargo blocks"); }
             }
         }
 
