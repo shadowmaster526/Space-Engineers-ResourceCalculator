@@ -348,7 +348,7 @@ namespace IngameScript
                 new RequiredMaterial("Copper", 0.33),
                 new RequiredMaterial("Aluminium", 0.67)
             }, "10GHzCPU"));
-            blueprints.Add("DetectionComp", new Component(new List<RequiredMaterial>
+            blueprints.Add("DetectorComponent", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 1.67),
                 new RequiredMaterial("Copper", 2.67),
