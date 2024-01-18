@@ -356,7 +356,7 @@ namespace IngameScript
             }, "DetectionComp"));
             blueprints.Add("DilithiumMatrix", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("Dililthium", 1.0)
+                new RequiredMaterial("Dilithium", 1.0)
             }, "DilithiumMatrix"));
             blueprints.Add("Display", new Component(new List<RequiredMaterial>
             {
@@ -754,18 +754,22 @@ namespace IngameScript
 
         private string TruncateString(string _str)
         {
-            if(_str.Length >= padAmount)
+            try
             {
-                int splitIndex = _str.ToList().FindIndex(1, char.IsUpper);
+                if (_str.Length >= padAmount)
+                {
+                    int splitIndex = _str.ToList().FindIndex(1, char.IsUpper);
 
-                string first = _str.Substring(0, splitIndex).Substring(0,3);
-                
-                string second = _str.Substring(splitIndex);
+                    string first = _str.Substring(0, splitIndex).Substring(0, 3);
 
-                return first + second.Substring(0, second.Length - 4) + ".";
+                    string second = _str.Substring(splitIndex);
+
+                    return first + second.Substring(0, second.Length - 4) + ".";
+                }
+
+                return _str;
             }
-
-            return _str;
+            catch { return _str; }
         }
 
         private string ConvertToThousandths(double number)
