@@ -1,4 +1,4 @@
-﻿using Sandbox.Definitions;
+using Sandbox.Definitions;
 using Sandbox.Game.Entities.Cube;
 using Sandbox.Game.EntityComponents;
 using Sandbox.Game.Screens;
@@ -163,9 +163,9 @@ namespace IngameScript
             }, "RubberTyre"));
             blueprints.Add("TorpedoThruster", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("TritaniumIngot", 0.11),
-                new RequiredMaterial("DuraniumIngot", 0.11),
-                new RequiredMaterial("AluminumIngot", 0.08),
+                new RequiredMaterial("Tritanium", 0.11),
+                new RequiredMaterial("Duranium", 0.11),
+                new RequiredMaterial("Aluminum", 0.08),
                 new RequiredMaterial("Iron", 0.08),
                 new RequiredMaterial("Nickel", 0.03),
                 new RequiredMaterial("Silicon", 0.03),
@@ -176,14 +176,14 @@ namespace IngameScript
             }, "TorpedoThruster"));
             blueprints.Add("TransparentAluminumPlate", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("AluminumIngot", 10.0),
+                new RequiredMaterial("Aluminum", 10.0),
                 new RequiredMaterial("Silver", 6.67)
             }, "TransparentAluminumPlate"));
             blueprints.Add("TorpedoWarhead", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("TritaniumIngot", 0.17),
-                new RequiredMaterial("DuraniumIngot", 0.17),
-                new RequiredMaterial("AluminumIngot", 0.11),
+                new RequiredMaterial("Tritanium", 0.17),
+                new RequiredMaterial("Duranium", 0.17),
+                new RequiredMaterial("Aluminum", 0.11),
                 new RequiredMaterial("Iron", 0.11),
                 new RequiredMaterial("Nickel", 0.08),
                 new RequiredMaterial("Silicon", 0.08),
@@ -202,7 +202,7 @@ namespace IngameScript
             }, "SteelPlate"));
             blueprints.Add("SteelGirder", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("CarbonSteelIngot", 2.0)
+                new RequiredMaterial("Steel", 2.0)
             }, "SteelGirder"));
             blueprints.Add("SolarCell", new Component(new List<RequiredMaterial>
             {
@@ -272,7 +272,7 @@ namespace IngameScript
             }, "LithiumIonPowerCell"));
             blueprints.Add("LightEmittingDiode", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("GalliumIngot", 0.67),
+                new RequiredMaterial("Gallium", 0.67),
                 new RequiredMaterial("Plastic", 1.33),
                 new RequiredMaterial("CopperWire", 0.33),
             }, "LightEmittingDiode"));
@@ -344,7 +344,7 @@ namespace IngameScript
             }, "CopperWire"));
             blueprints.Add("10GHzCPU", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("GalliumIngot", 0.67),
+                new RequiredMaterial("Gallium", 0.67),
                 new RequiredMaterial("Copper", 0.33),
                 new RequiredMaterial("Aluminium", 0.67)
             }, "10GHzCPU"));
@@ -356,7 +356,7 @@ namespace IngameScript
             }, "DetectionComp"));
             blueprints.Add("DilithiumMatrix", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("RefinedDililthium", 1.0)
+                new RequiredMaterial("Dililthium", 1.0)
             }, "DilithiumMatrix"));
             blueprints.Add("Display", new Component(new List<RequiredMaterial>
             {
@@ -384,7 +384,7 @@ namespace IngameScript
             }, "FlashPowder"));
             blueprints.Add("GaAsSolarCell", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("GalliumIngot", 1.0),
+                new RequiredMaterial("Gallium", 1.0),
                 new RequiredMaterial("Aluminium", 0.67),
                 new RequiredMaterial("Silicon", 1.33),
                 new RequiredMaterial("Copper", 0.67),
@@ -423,8 +423,50 @@ namespace IngameScript
                 new RequiredMaterial("Iron", 13.33),
                 new RequiredMaterial("Nickel", 13.33)
             }, "Medical"));
+			blueprints.Add("TritaniumPlate", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Tritanium", 3.33),
+            }, "TritaniumPlate"));
+			blueprints.Add("Torpedo_Casing", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Tritanium", 3.33),
+				new RequiredMaterial("Duranium", 0.33),
+				new RequiredMaterial("Aluminium", 0.17),
+				new RequiredMaterial("Iron", 0.17),
+				new RequiredMaterial("Nickel", 0.17),
+				new RequiredMaterial("Silicon", 0.11),
+				new RequiredMaterial("MagnesiumPowder", 0.08),
+				new RequiredMaterial("Cobalt", 0.08),
+				new RequiredMaterial("Silver", 0.03),
+				new RequiredMaterial("Gold", 0.03),
+            }, "Torpedo_Casing"));
+			blueprints.Add("Torpedo_Fuel_Cell", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Tritanium", 3.33),
+				new RequiredMaterial("Duranium", 0.03),
+				new RequiredMaterial("Aluminium", 0.33),
+				new RequiredMaterial("Iron", 0.33),
+				new RequiredMaterial("Nickel", 0.17),
+				new RequiredMaterial("Silicon", 0.17),
+				new RequiredMaterial("MagnesiumPowder", 0.11),
+				new RequiredMaterial("Cobalt", 0.11),
+				new RequiredMaterial("Silver", 0.08),
+				new RequiredMaterial("Gold", 0.08),
+            }, "Torpedo_Fuel_Cell"));
+			blueprints.Add("Torpedo_Guidance", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Tritanium", 3.33),
+				new RequiredMaterial("Duranium", 0.08),
+				new RequiredMaterial("Aluminium", 0.03),
+				new RequiredMaterial("Iron", 0.03),
+				new RequiredMaterial("Nickel", 0.33),
+				new RequiredMaterial("Silicon", 0.33),
+				new RequiredMaterial("MagnesiumPowder", 0.17),
+				new RequiredMaterial("Cobalt", 0.17),
+				new RequiredMaterial("Silver", 0.11),
+				new RequiredMaterial("Gold", 0.11),
+            }, "Torpedo_Guidance"));
         }
-
         public void Save()
         {
             // Called when the program needs to save its state. Use
