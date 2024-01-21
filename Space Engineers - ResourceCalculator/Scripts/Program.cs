@@ -29,27 +29,6 @@ namespace IngameScript
 {
     partial class Program : MyGridProgram
     {
-        // This file contains your actual script.
-        //
-        // You can either keep all your code here, or you can create separate
-        // code files to make your program easier to navigate while coding.
-        //
-        // In order to add a new utility class, right-click on your project, 
-        // select 'New' then 'Add Item...'. Now find the 'Space Engineers'
-        // category under 'Visual C# Items' on the left hand side, and select
-        // 'Utility Class' in the main area. Name it in the box below, and
-        // press OK. This utility class will be merged in with your code when
-        // deploying your final script.
-        //
-        // You can also simply create a new utility class manually, you don't
-        // have to use the template if you don't want to. Just do so the first
-        // time to see what a utility class looks like.
-        // 
-        // Go to:
-        // https://github.com/malware-dev/MDK-SE/wiki/Quick-Introduction-to-Space-Engineers-Ingame-Scripts
-        //
-        // to learn more about ingame scripts.
-
         enum States
         {
             QueueSelection,
@@ -480,28 +459,28 @@ namespace IngameScript
                 new RequiredMaterial("Carbon", 0.1),
                 new RequiredMaterial("Sulfur", 0.07),
             }, "Gunpowder"));
-	    blueprints.Add("Welder2Item", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0100_Welder2", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 1.67),
                 new RequiredMaterial("Nickel", 0.33),
                 new RequiredMaterial("Cobalt", 0.07),
                 new RequiredMaterial("Silicon", 0.67),
             }, "EnhancedWelder"));
-	    blueprints.Add("Welder3Item", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0110_Welder3", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 1.67),
                 new RequiredMaterial("Nickel", 0.33),
                 new RequiredMaterial("Cobalt", 0.07),
                 new RequiredMaterial("Silver", 0.67),
             }, "ProficientWelder"));
-	    blueprints.Add("AngleGrinder2Item", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0020_AngleGrinder2", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 1),
                 new RequiredMaterial("Nickel", 0.33),
                 new RequiredMaterial("Cobalt", 0.67),
                 new RequiredMaterial("Silicon", 2),
             }, "EnhancedGrinder"));
-	    blueprints.Add("AngleGrinder3Item", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0030_AngleGrinder3", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 1),
                 new RequiredMaterial("Nickel", 0.33),
@@ -509,26 +488,26 @@ namespace IngameScript
                 new RequiredMaterial("Silicon", 2),
                 new RequiredMaterial("Silver", 0.67),
             }, "ProficientGrinder"));
-	    blueprints.Add("HandDrill2Item", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0060_HandDrill2", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 6.67),
                 new RequiredMaterial("Nickel", 1),
                 new RequiredMaterial("Silicon", 1.67),
             }, "EnhancedHandDrill"));
-	    blueprints.Add("HandDrill3Item", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0070_HandDrill3", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 6.67),
                 new RequiredMaterial("Nickel", 1),
                 new RequiredMaterial("Silicon", 1),
                 new RequiredMaterial("Silver", 0.67),
             }, "ProficientHandDrill"));
-	    blueprints.Add("OxygenBottle", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0010_OxygenBottle", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 26.67),
                 new RequiredMaterial("Nickel", 10),
                 new RequiredMaterial("Silicon", 3.33),
             }, "OxygenBottle"));
-	    blueprints.Add("HydrogenBottle", new Component(new List<RequiredMaterial>
+	    blueprints.Add("Position0020_HydrogenBottle", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 26.67),
                 new RequiredMaterial("Nickel", 10),
