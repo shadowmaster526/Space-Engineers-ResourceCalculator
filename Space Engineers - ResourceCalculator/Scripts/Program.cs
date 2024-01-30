@@ -75,17 +75,6 @@ namespace IngameScript
 
         public Program()
         {
-            // The constructor, called only once every session and
-            // always before any other method is called. Use it to
-            // initialize your script. 
-            //     
-            // The constructor is optional and can be removed if not
-            // needed.
-            // 
-            // It's recommended to set Runtime.UpdateFrequency 
-            // here, which will allow your script to run itself without a 
-            // timer block.
-
             Runtime.UpdateFrequency = UpdateFrequency.Update10;
 
             string err = "Missing [display] LCD\n";
@@ -577,16 +566,6 @@ namespace IngameScript
 
         public void Main(string argument, UpdateType updateType)
         {
-            // The main entry point of the script, invoked every time
-            // one of the programmable block's Run actions are invoked,
-            // or the script updates itself. The updateSource argument
-            // describes where the update came from. Be aware that the
-            // updateSource is a  bitfield  and might contain more than 
-            // one update type.
-            // 
-            // The method itself is required, but the arguments above
-            // can be removed if not needed.
-
             if((updateType & UpdateType.Terminal) != 0)
             {
                 RunCommand(argument);
