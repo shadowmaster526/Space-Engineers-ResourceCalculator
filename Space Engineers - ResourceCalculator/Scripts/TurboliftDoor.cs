@@ -72,11 +72,11 @@ namespace IngameScript.Turbo
         public struct TurboLift
         {
             public IMyButtonPanel Lift;
-            public List<TurboLiftButton> Buttons;
+            public Dictionary<int, TurboLiftButton> Buttons;
             public IMyDoor LiftDoor;
             public int id;
 
-            public TurboLift(IMyButtonPanel lift, List<TurboLiftButton> Buttons, IMyDoor liftDoor)
+            public TurboLift(IMyButtonPanel lift, Dictionary<int,TurboLiftButton> Buttons, IMyDoor liftDoor)
             {
                 Lift = lift;
                 this.Buttons = Buttons;
@@ -89,11 +89,11 @@ namespace IngameScript.Turbo
                 Lift.GetActionWithName("Activate").Apply(Buttons[_buttonID].To);
                 LiftDoor?.CloseDoor();
             }
-            public bool ButtonExists(int _buttonID) => Buttons.Count - 1 >= _buttonID;
+            public bool ButtonExists(int _buttonID) => Buttons.ContainsKey(_buttonID);
             internal void NewButton(int _buttonID, IMyButtonPanel _lift = null)
             {
-                if (!(Buttons.Count - 1 >= _buttonID))
-                    Buttons.Add(new TurboLiftButton(_lift));
+                if (!ButtonExists(_buttonID))
+                    Buttons.Add(_buttonID, new TurboLiftButton(_lift));
 
                 else
                 {
@@ -136,6 +136,8 @@ namespace IngameScript.Turbo
             // 
             // This method is optional and can be removed if not
             // needed.
+
+
         }
         
         public void Main(string argument, UpdateType updateType)
@@ -210,31 +212,35 @@ namespace IngameScript.Turbo
 
         private void ApplyModifications(string _customData)
         {
-            string[] strArray = _customData.Split(new[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            
-            int currentID = -1;
-            for (int i = 0; i < strArray.Length; i++)
+            try
             {
-                string str = strArray[i];
-             
-                if (str.Contains("tid"))
-                    currentID = int.Parse(str.Split(':')[1]);
+                string[] strArray = _customData.Split('\n');
 
-                if (currentID < 0) continue;
-
-                if (str.ToLower().Contains("button"))
+                int currentID = -1;
+                for (int i = 0; i < strArray.Length; i++)
                 {
-                    string str_button = str.Split('-')[1];
-                    string[] IDs = str_button.Split(':');
+                    string str = strArray[i];
 
-                    int buttonID = int.Parse(IDs[0]);
-                    int liftID = int.Parse(IDs[1]);
+                    if (str.Contains("tid"))
+                        currentID = int.Parse(str.Split(':')[1]);
 
-                    TurboLift t = turboLifts[activeTurboLifts[currentID].CustomName];
-                    t.NewButton(buttonID, activeTurboLifts[liftID]);
-                    turboLifts[activeTurboLifts[currentID].CustomName] = t;
+                    if (currentID < 0) continue;
+
+                    if (str.ToLower().Contains("button"))
+                    {
+                        string str_button = str.Split('-')[1];
+                        string[] IDs = str_button.Split(':');
+
+                        int buttonID = int.Parse(IDs[0]);
+                        int liftID = int.Parse(IDs[1]);
+
+                        TurboLift t = turboLifts[activeTurboLifts[currentID].CustomName];
+                        t.NewButton(buttonID, activeTurboLifts[liftID]);
+                        turboLifts[activeTurboLifts[currentID].CustomName] = t;
+                    }
                 }
             }
+            catch (Exception e) { Echo(e.ToString()); }
         }
 
         string teleportLog = "\n";
@@ -303,7 +309,7 @@ namespace IngameScript.Turbo
                 activeTurboLifts.Add(block as IMyButtonPanel);
                 turboLifts.Add(block.CustomName,
                     new TurboLift(block as IMyButtonPanel,
-                    new List<TurboLiftButton>(), null));
+                    new Dictionary<int, TurboLiftButton>(), null));
             }
         }
 
@@ -324,35 +330,47 @@ namespace IngameScript.Turbo
 
         string DisplayTurboLiftModifyMenu(int _index)
         {
+            // swaps back to default state if out of bounds or some reason a negative number
             if (_index < 0 || _index > activeTurboLifts.Count)
             {
                 currentState = DisplayState.TurboLiftSelectionMenu;
                 return DisplayTurboLiftSelectionMenu();
             }
 
+            // displays starting message, and gets the current turbo lift from the _index
             string message = "Change connections between turbolifts\n\n";
             TurboLift turboLift = turboLifts[activeTurboLifts[_index].CustomName];
+
+            // Looks through the active turbo lifts
             for (int i = 0; i < activeTurboLifts.Count; i++)
             {
                 var t = activeTurboLifts[i];
-                if(t.CustomName != turboLift.Lift.CustomName)
-                    message += $"ID: {i} TurboLift: {t.CustomName}\n";
 
+                // ignores current turbolift, add others to message
+                if(t.CustomName != turboLift.Lift.CustomName)
+                    message += $"ID: {i} TurboLift: {t.CustomName}\n"; 
+
+                // used to set the ids, done here cos why not incase of a weird change
                 TurboLift td = turboLifts[t.CustomName];
                 td.id = i;
                 turboLifts[t.CustomName] = td;
             }
 
             message += '\n';
-            message += $"tid:{_index}\n";
+            message += $"tid:{_index}\n"; // this just used to identify the active turbolift
             message += "Modify values below: \n";
 
-            for(int i = 0; i < turboLift.Buttons.Count; i++)
+            // loop through turbolift buttons
+            foreach (int key in turboLift.Buttons.Keys)
             {
-                TurboLiftButton button = turboLift.Buttons[i];
+                // get the button we want to display
+                TurboLiftButton button = turboLift.Buttons[key];
                 int id = 0;
+
+                // set the id to the currently stored id of the To turbolift
                 if (button.To != null) id = turboLifts[button.To.CustomName].id;
-                message += $"Button -{i}: {id}\n";
+                // display the key for this button + the id of the To
+                message += $"Button -{key}: {id}\n";
             }
 
             message += "\nBack?: ";
