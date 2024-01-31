@@ -31,10 +31,11 @@ namespace IngameScript.Turbo
 {
     partial class Program : MyGridProgram
     {
-        public enum DisplayState
+        public enum DisplayState : int
         {
-            TurboLiftSelectionMenu,
-            TurboLiftModifyMenu
+            TurboLiftSelectionMenu = 1,
+            TurboLiftModifyMenu = 2,
+            TeleportLogMenu = 3
         }
 
         const double DISTTHRESHOLD = 3;
@@ -75,6 +76,7 @@ namespace IngameScript.Turbo
             public Dictionary<int, TurboLiftButton> Buttons;
             public IMyDoor LiftDoor;
             public int id;
+            public int closeTimer;
 
             public TurboLift(IMyButtonPanel lift, Dictionary<int,TurboLiftButton> Buttons, IMyDoor liftDoor)
             {
@@ -82,6 +84,7 @@ namespace IngameScript.Turbo
                 this.Buttons = Buttons;
                 LiftDoor = liftDoor;
                 id = -1;
+                closeTimer = 0;
             }
 
             public void TeleportTo(int _buttonID)
@@ -119,34 +122,52 @@ namespace IngameScript.Turbo
         readonly List<IMyButtonPanel> activeTurboLifts = new List<IMyButtonPanel>();
         readonly List<IMyDoor> activeDoors = new List<IMyDoor>();
         readonly List<LCD> activeLCDs = new List<LCD>();
+        
         DisplayState currentState = DisplayState.TurboLiftSelectionMenu;
-
+        string teleportLog = "\n";
+        int timer = 0;
 
         public Program()
         {
             Init();
             SetupDoors();
+            LoadTurboLiftData(Storage);
         }
-
-        public void Save()
-        {
-            // Called when the program needs to save its state. Use
-            // this method to save your state to the Storage field
-            // or some other means. 
-            // 
-            // This method is optional and can be removed if not
-            // needed.
-
-
-        }
-        
+        public void Save() { Storage = SaveTurboLiftData(); }
         public void Main(string argument, UpdateType updateType)
         {
-            HandleTurbolift(argument);
-            HandleLCDPanels();
+            ActivateTurbolift(argument);
+            UpdateLcdDisplays();
+            AutoCloseDoors();
         }
 
-        private void HandleLCDPanels()
+        private void AutoCloseDoors()
+        {
+            timer++;
+            if (timer >= 10)
+            {
+                for (int i = 0; i < activeTurboLifts.Count; i++)
+                {
+                    // very ineffcient, lets hope we do not have thousands of turbolifts
+                    TurboLift t = turboLifts[activeTurboLifts[i].CustomName];
+                    IMyDoor door = t.LiftDoor;
+                    if (door?.OpenRatio > 0)
+                    {
+                        // door is open or near open
+                        t.closeTimer++;
+                        if (t.closeTimer >= 30)
+                        {
+                            door?.CloseDoor();
+                            t.closeTimer = 0;
+                        }
+                    }
+                    else t.closeTimer = 0;
+                    turboLifts[activeTurboLifts[i].CustomName] = t;
+                }
+            }
+        }
+
+        private void UpdateLcdDisplays()
         {
             // loop through all lcds.
             // depending on the state check if the values have changed
@@ -157,7 +178,7 @@ namespace IngameScript.Turbo
             {
                 LCD currentLCD = activeLCDs[i];
                 string customData = currentLCD.Block.CustomData;
-                if(currentState == DisplayState.TurboLiftSelectionMenu)
+                if(currentState == DisplayState.TurboLiftSelectionMenu || currentState == DisplayState.TeleportLogMenu)
                 {
                     try
                     {
@@ -172,7 +193,11 @@ namespace IngameScript.Turbo
 
                         if (!strippedData.Equals(strippedData2))
                             customData = ChangeState(DisplayState.TurboLiftModifyMenu, strippedData);
-                        else customData = DisplayTurboLiftSelectionMenu();
+                        else
+                        {
+                            if (currentState == DisplayState.TurboLiftSelectionMenu) customData = DisplayTurboLiftSelectionMenu();
+                            else customData = DisplayTeleportLog();
+                        }
                     } catch (Exception e) { currentLCD.Panel.WriteText($"Error going from selection menu to modify menu\n{e}"); }
                 }
 
@@ -188,7 +213,6 @@ namespace IngameScript.Turbo
                 activeLCDs[i] = currentLCD; 
             }
         }
-
         private string ChangeState(DisplayState _newState, string _customData)
         {
             try
@@ -197,7 +221,17 @@ namespace IngameScript.Turbo
                 switch (_newState)
                 {
                     case DisplayState.TurboLiftModifyMenu:
-                        try { return DisplayTurboLiftModifyMenu(int.Parse(_customData)); }
+                        try 
+                        {
+                            int value = int.Parse(_customData);
+                            if (value == -2) return DisplayTeleportLog();
+                            else if (value == -1)
+                            {
+                                currentState = DisplayState.TurboLiftSelectionMenu;
+                                return DisplayTurboLiftSelectionMenu();
+                            }
+                            else return DisplayTurboLiftModifyMenu(value); 
+                        }
                         catch { return ChangeState(DisplayState.TurboLiftSelectionMenu, _customData); }
 
                     case DisplayState.TurboLiftSelectionMenu:
@@ -209,7 +243,14 @@ namespace IngameScript.Turbo
 
             return "NULL";
         }
-
+        private string DisplayTeleportLog()
+        {
+            currentState = DisplayState.TeleportLogMenu;
+            string log = $"Change to -1 to go back: -2\n";
+            log += $"\nTeleport log: \n";
+            log += teleportLog;
+            return log;
+        }
         private void ApplyModifications(string _customData)
         {
             try
@@ -242,9 +283,7 @@ namespace IngameScript.Turbo
             }
             catch (Exception e) { Echo(e.ToString()); }
         }
-
-        string teleportLog = "\n";
-        void HandleTurbolift(string argument)
+        void ActivateTurbolift(string argument)
         {
             try
             {
@@ -264,7 +303,7 @@ namespace IngameScript.Turbo
                             if (currentTurboLift.ButtonExists(id))
                             {
                                 currentTurboLift.TeleportTo(id);
-                                teleportLog += $"TO: {currentTurboLift.Buttons[id].To.CustomName} FROM: {currentTurboLift.Lift.CustomName}\n";
+                                teleportLog += $"--| TO: {currentTurboLift.Buttons[id].To.CustomName} FROM: {currentTurboLift.Lift.CustomName}\n";
                             }
                             else currentTurboLift.NewButton(id);
                         }
@@ -273,7 +312,6 @@ namespace IngameScript.Turbo
             }
             catch (Exception e) { activeLCDs[0].Panel.WriteText($"Error with Turbolifts {e}"); }
         }
-
         void Init()
         {
             Runtime.UpdateFrequency = UpdateFrequency.Update10;
@@ -288,7 +326,6 @@ namespace IngameScript.Turbo
                 GetLCDs(block);
             }
         }
-
         void GetLCDs(IMyTerminalBlock block)
         {
             if (block.CustomName.Contains(LCDPREFIX))
@@ -312,7 +349,6 @@ namespace IngameScript.Turbo
                     new Dictionary<int, TurboLiftButton>(), null));
             }
         }
-
         string DisplayTurboLiftSelectionMenu()
         {
             string text = "Choose Turbolift to modify: -1\n\n";
@@ -323,11 +359,10 @@ namespace IngameScript.Turbo
             }
 
             text += '\n';
-            text += $"Doors Amount : {activeDoors.Count}{teleportLog}\n";
+            text += $"Doors Amount : {activeDoors.Count}\n";
 
             return text;
         }
-
         string DisplayTurboLiftModifyMenu(int _index)
         {
             // swaps back to default state if out of bounds or some reason a negative number
@@ -365,7 +400,7 @@ namespace IngameScript.Turbo
             {
                 // get the button we want to display
                 TurboLiftButton button = turboLift.Buttons[key];
-                int id = 0;
+                int id = -1;
 
                 // set the id to the currently stored id of the To turbolift
                 if (button.To != null) id = turboLifts[button.To.CustomName].id;
@@ -376,7 +411,6 @@ namespace IngameScript.Turbo
             message += "\nBack?: ";
             return message;
         }
-
         void SetupDoors()
         {
             for (int i = 0; i < turboLifts.Count; i++)
@@ -408,6 +442,75 @@ namespace IngameScript.Turbo
                 turboLifts[activeTurboLifts[i].CustomName] = lift; // <-- needed to add this
                 Echo(message);
             }
+        }
+        private string SaveTurboLiftData()
+        {
+            try
+            {
+                int currentState_ = (int)(currentState == DisplayState.TurboLiftModifyMenu ? DisplayState.TurboLiftSelectionMenu : currentState);
+                string data = $"CurrentState:{currentState_}\n";
+                foreach (string key in turboLifts.Keys)
+                {
+                    data += $"Key:{key}\n";
+                    TurboLift turboLift = turboLifts[key];
+                    foreach (int key_ in turboLift.Buttons.Keys)
+                    {
+                        TurboLiftButton button = turboLift.Buttons[key_];
+                        data += $"Button;{key_}:{button.To?.CustomName}\n";
+                    }
+                    data += '\n';
+                }
+
+                Echo("\nSAVING\n");
+                return data;
+            }
+            catch
+            {
+                Echo("Failed to save storage options");
+                return "Failed to save storage options";
+            }
+        }
+        private void LoadTurboLiftData(string _storage)
+        {
+            try
+            {
+                string key = "";
+                string[] data = _storage.Split('\n');
+
+                for (int i = 0; i < data.Length; i++)
+                {
+                    if (data[i].Contains("CurrentState"))
+                    {
+                        string state = data[i].Split(':')[1];
+                        Echo(state + "\n\n");
+                        int currentState_ = int.Parse(state);
+                        currentState = (DisplayState)currentState_;
+                    }
+
+                    if (data[i].Contains("Key")) key = data[i].Split(':')[1];
+                    if (turboLifts.ContainsKey(key))
+                    {
+                        TurboLift turboLift = turboLifts[key];
+                        if (data[i].Contains("Button"))
+                        {
+                            string str = data[i].Split(';')[1];
+                            string[] button = str.Split(':');
+
+                            if (button.Length > 1)
+                            {
+                                string key_ = button[0];
+                                string to = button[1];
+
+                                if (turboLifts.ContainsKey(to))
+                                    turboLift.NewButton(int.Parse(key_), turboLifts[to].Lift);
+                            }
+                        }
+                    }
+                }
+
+                Echo('\n' + "Loading Storage\n\n" + _storage + '\n');
+            }
+            catch (Exception e) { Echo("Error loading storage  \n" + $"{e}"); }
         }
     }
 }
