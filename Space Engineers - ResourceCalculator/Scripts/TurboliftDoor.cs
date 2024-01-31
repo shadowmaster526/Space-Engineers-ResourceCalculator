@@ -39,9 +39,9 @@ namespace IngameScript.Turbo
         }
 
         const double DISTTHRESHOLD = 3;
-        const string DOORPREFIX         = "[tdoor]";
-        const string TURBOLIFTPREFIX    = "[tLift]";
-        const string LCDPREFIX          = "[tLCD]";
+        const string DOORPREFIX = "[tdoor]";
+        const string TURBOLIFTPREFIX = "[tLift]";
+        const string LCDPREFIX = "[tLCD]";
 
         public struct LCD
         {
@@ -53,9 +53,10 @@ namespace IngameScript.Turbo
             {
                 string[] split = _customData.Split('\n');
 
-                if(split.Length > 0) { 
+                if (split.Length > 0)
+                {
                     string[] split2 = split[0].Split(':');
-                    if(split?.Length > 0)
+                    if (split?.Length > 0)
                         return split2[1];
                 }
 
@@ -78,7 +79,7 @@ namespace IngameScript.Turbo
             public int id;
             public int closeTimer;
 
-            public TurboLift(IMyButtonPanel lift, Dictionary<int,TurboLiftButton> Buttons, IMyDoor liftDoor)
+            public TurboLift(IMyButtonPanel lift, Dictionary<int, TurboLiftButton> Buttons, IMyDoor liftDoor)
             {
                 Lift = lift;
                 this.Buttons = Buttons;
@@ -118,11 +119,11 @@ namespace IngameScript.Turbo
             }
         }
 
-        readonly Dictionary<string,TurboLift> turboLifts = new Dictionary<string, TurboLift>();
+        readonly Dictionary<string, TurboLift> turboLifts = new Dictionary<string, TurboLift>();
         readonly List<IMyButtonPanel> activeTurboLifts = new List<IMyButtonPanel>();
         readonly List<IMyDoor> activeDoors = new List<IMyDoor>();
         readonly List<LCD> activeLCDs = new List<LCD>();
-        
+
         DisplayState currentState = DisplayState.TurboLiftSelectionMenu;
         string teleportLog = "\n";
         int timer = 0;
@@ -174,11 +175,11 @@ namespace IngameScript.Turbo
             // if Selection Menu Check default value changed, as the selection menu
             // can update without input from the player;
 
-            for(int i = 0; i < activeLCDs.Count; i++)
+            for (int i = 0; i < activeLCDs.Count; i++)
             {
                 LCD currentLCD = activeLCDs[i];
                 string customData = currentLCD.Block.CustomData;
-                if(currentState == DisplayState.TurboLiftSelectionMenu || currentState == DisplayState.TeleportLogMenu)
+                if (currentState == DisplayState.TurboLiftSelectionMenu || currentState == DisplayState.TeleportLogMenu)
                 {
                     try
                     {
@@ -198,10 +199,11 @@ namespace IngameScript.Turbo
                             if (currentState == DisplayState.TurboLiftSelectionMenu) customData = DisplayTurboLiftSelectionMenu();
                             else customData = DisplayTeleportLog();
                         }
-                    } catch (Exception e) { currentLCD.Panel.WriteText($"Error going from selection menu to modify menu\n{e}"); }
+                    }
+                    catch (Exception e) { currentLCD.Panel.WriteText($"Error going from selection menu to modify menu\n{e}"); }
                 }
 
-                else if(currentState == DisplayState.TurboLiftModifyMenu)
+                else if (currentState == DisplayState.TurboLiftModifyMenu)
                 {
                     if (!customData.Equals(currentLCD.CustomData))
                         customData = ChangeState(DisplayState.TurboLiftSelectionMenu, customData);
@@ -210,7 +212,7 @@ namespace IngameScript.Turbo
                 currentLCD.Block.CustomData = customData;
                 currentLCD.Panel.WriteText(customData);
                 currentLCD.CustomData = customData;
-                activeLCDs[i] = currentLCD; 
+                activeLCDs[i] = currentLCD;
             }
         }
         private string ChangeState(DisplayState _newState, string _customData)
@@ -221,7 +223,7 @@ namespace IngameScript.Turbo
                 switch (_newState)
                 {
                     case DisplayState.TurboLiftModifyMenu:
-                        try 
+                        try
                         {
                             int value = int.Parse(_customData);
                             if (value == -2) return DisplayTeleportLog();
@@ -230,7 +232,7 @@ namespace IngameScript.Turbo
                                 currentState = DisplayState.TurboLiftSelectionMenu;
                                 return DisplayTurboLiftSelectionMenu();
                             }
-                            else return DisplayTurboLiftModifyMenu(value); 
+                            else return DisplayTurboLiftModifyMenu(value);
                         }
                         catch { return ChangeState(DisplayState.TurboLiftSelectionMenu, _customData); }
 
@@ -382,8 +384,8 @@ namespace IngameScript.Turbo
                 var t = activeTurboLifts[i];
 
                 // ignores current turbolift, add others to message
-                if(t.CustomName != turboLift.Lift.CustomName)
-                    message += $"ID: {i} TurboLift: {t.CustomName}\n"; 
+                if (t.CustomName != turboLift.Lift.CustomName)
+                    message += $"ID: {i} TurboLift: {t.CustomName}\n";
 
                 // used to set the ids, done here cos why not incase of a weird change
                 TurboLift td = turboLifts[t.CustomName];
@@ -415,7 +417,7 @@ namespace IngameScript.Turbo
         {
             for (int i = 0; i < turboLifts.Count; i++)
             {
-                string message = $"TurboLift {i}\n\n"; 
+                string message = $"TurboLift {i}\n\n";
                 TurboLift lift = turboLifts[activeTurboLifts[i].CustomName];
                 IMyTerminalBlock lift_block = lift.Lift;
 
@@ -424,8 +426,8 @@ namespace IngameScript.Turbo
                     IMyTerminalBlock door_block = activeDoors[j];
                     Vector3D lift_position = lift_block.GetPosition();
                     Vector3D door_position = door_block.GetPosition();
-                    
-                    if(Vector3D.Distance(lift_position, door_position) < DISTTHRESHOLD)
+
+                    if (Vector3D.Distance(lift_position, door_position) < DISTTHRESHOLD)
                     {
                         message += $"Added" +
                             $"\nTurbolift: {lift.Lift.CustomName}" +
