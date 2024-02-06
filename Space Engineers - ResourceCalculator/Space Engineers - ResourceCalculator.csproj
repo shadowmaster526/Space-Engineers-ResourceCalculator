@@ -38,6 +38,8 @@
   <Import Project="MDK/MDK.options.props" />
   <Import Project="MDK/MDK.paths.props" Condition="exists('MDK/MDK.paths.props')" />
   <ItemGroup>
+    <Compile Include="Scripts\AdvancedSorter\AdvancedSorter.cs" />
+    <Compile Include="Scripts\Airlock\Airlock.cs" />
     <Compile Include="Scripts\FileName.cs" />
     <Compile Include="MDK\Bootstrapper.cs" />
     <AdditionalFiles Include="MDK\MDK.options.props">
@@ -46,14 +48,15 @@
     <AdditionalFiles Include="MDK\MDK.paths.props">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>
-    <Compile Include="Scripts\Program.cs" />
+    <Compile Include="Scripts\RecipeResources\Program.cs" />
     <AdditionalFiles Include="Instructions.readme" />
     <AdditionalFiles Include="thumb.png" />
     <AdditionalFiles Include="MDK\whitelist.cache" />
     <Compile Include="Scripts\RangeFinder.cs" />
     <Compile Include="Scripts\Template.cs" />
-    <Compile Include="Scripts\TurboliftDoor.cs" />
+    <Compile Include="Scripts\Turbolift\TurboliftDoor.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="AfterBuild">
     <Copy SourceFiles="MDK\MDK.options.props" DestinationFolder="$(TargetDir)\MDK" />
