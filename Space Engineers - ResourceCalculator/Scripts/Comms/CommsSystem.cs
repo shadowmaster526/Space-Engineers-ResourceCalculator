@@ -37,7 +37,7 @@ namespace IngameScript.Scripts.Comms
             runCount++;
             Echo(runCount.ToString() + ":" + updateSource.ToString());
 
-            if((updateSource & (UpdateType.Trigger | UpdateType.Terminal)) > 0 
+            if ((updateSource & (UpdateType.Trigger | UpdateType.Terminal)) > 0
                 || (updateSource & (UpdateType.Mod)) > 0
                 || (updateSource & (UpdateType.Script)) > 0)
             {
@@ -50,12 +50,12 @@ namespace IngameScript.Scripts.Comms
 
             if ((updateSource & UpdateType.IGC) > 0)
             {
-                while(myBroadcastListener.HasPendingMessage)
+                while (myBroadcastListener.HasPendingMessage)
                 {
                     MyIGCMessage myIGCMessage = myBroadcastListener.AcceptMessage();
-                    if(myIGCMessage.Tag == broadcastTag)
+                    if (myIGCMessage.Tag == broadcastTag)
                     {
-                        if(myIGCMessage.Data is string)
+                        if (myIGCMessage.Data is string)
                         {
                             string str = myIGCMessage.Data.ToString();
                             Echo("Received IGC Public Message");
@@ -70,7 +70,6 @@ namespace IngameScript.Scripts.Comms
                     else
                     {
                     }
-                }
                 }
             }
         }
