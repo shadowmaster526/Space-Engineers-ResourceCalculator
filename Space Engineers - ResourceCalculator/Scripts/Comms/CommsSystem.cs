@@ -1,0 +1,78 @@
+﻿using SpaceEngineers.Game.ModAPI.Ingame;
+using System.Collections.Generic;
+using Sandbox.ModAPI.Ingame;
+using VRageMath;
+using System;
+using System.Linq;
+using System.Text;
+
+
+namespace IngameScript.Scripts.Comms
+{
+    internal class Program : MyGridProgram
+    {
+        int runCount = 0;
+        string broadcastTag = "MDK IGC EXAMPLE 1";
+        IMyBroadcastListener myBroadcastListener;
+
+        public Program()
+        {
+            Echo("Broadcasting....");
+            myBroadcastListener = IGC.RegisterBroadcastListener(broadcastTag);
+            myBroadcastListener.SetMessageCallback(broadcastTag);
+        }
+
+        public void Save()
+        {
+            // Called when the program needs to save its state. Use
+            // this method to save your state to the Storage field
+            // or some other means. 
+            // 
+            // This method is optional and can be removed if not
+            // needed.
+        }
+
+        public void Main(string argument, UpdateType updateSource)
+        {
+            runCount++;
+            Echo(runCount.ToString() + ":" + updateSource.ToString());
+
+            if((updateSource & (UpdateType.Trigger | UpdateType.Terminal)) > 0 
+                || (updateSource & (UpdateType.Mod)) > 0
+                || (updateSource & (UpdateType.Script)) > 0)
+            {
+                if (argument != "")
+                {
+                    IGC.SendBroadcastMessage(broadcastTag, argument);
+                    Echo("Sending message:\n" + argument);
+                }
+            }
+
+            if ((updateSource & UpdateType.IGC) > 0)
+            {
+                while(myBroadcastListener.HasPendingMessage)
+                {
+                    MyIGCMessage myIGCMessage = myBroadcastListener.AcceptMessage();
+                    if(myIGCMessage.Tag == broadcastTag)
+                    {
+                        if(myIGCMessage.Data is string)
+                        {
+                            string str = myIGCMessage.Data.ToString();
+                            Echo("Received IGC Public Message");
+                            Echo("Tag=" + myIGCMessage.Tag);
+                            Echo("Data=" + myIGCMessage.Data.ToString());
+                            Echo("Source=" + myIGCMessage.Source.ToString("X"));
+                        }
+                        else // if(msg.Data is XXX)
+                        {
+                        }
+                    }
+                    else
+                    {
+                    }
+                }
+                }
+            }
+        }
+    }
+}

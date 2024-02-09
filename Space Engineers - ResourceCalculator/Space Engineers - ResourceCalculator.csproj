@@ -40,6 +40,7 @@
   <ItemGroup>
     <Compile Include="Scripts\AdvancedSorter\AdvancedSorter.cs" />
     <Compile Include="Scripts\Airlock\Airlock.cs" />
+    <Compile Include="Scripts\Comms\CommsSystem.cs" />
     <Compile Include="Scripts\FileName.cs" />
     <Compile Include="MDK\Bootstrapper.cs" />
     <AdditionalFiles Include="MDK\MDK.options.props">
