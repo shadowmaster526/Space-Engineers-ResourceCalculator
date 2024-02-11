@@ -251,11 +251,29 @@ namespace IngameScript.Scripts.Airlock
         const string OVERRIDECOMMAND = "Override";
         const string DISABLEOVERRIDECOMMAND = "Reset";
 
-        private const string CUSTOMDATA = "Welcome to airlock os\n" +
-            "if you are experiencing trouble with breathing,\n" +
-            "please consult the air\n" +
-            "For emergency use you can enable the emergency override below\n\n" +
-            "[Manual Override] = False";
+        private const string CUSTOMDATA
+            = "Welcome to airlock os\n" +
+              "if you are experiencing trouble with breathing,\n" +
+              "please consult the air\n" +
+              "For emergency use you can enable the emergency override below\n\n" +
+              "[Manual Override] = False";
+
+        private const string USAGEDATA
+            = "Welcome to the Airlock System\n\n" +
+            "To use create an airlock with: \n" +
+              " -  2 doors\n" +
+              " -  1 vent\n" +
+              " -  1 lcd\n" +
+              " -  1 button panel\n\n" +
+              
+            "Naming conventions: \n" +
+              "number = the number of this airlock, \nand needs to be the same for each block of the airlock\n\n" +
+              "Door to outside  ->  [ADOUT],{number}\n" +
+              "Door to inside   ->  [ADIN],{number}\n" +
+              "Vent             ->  [AVENT],{number}\n" +
+              "LCD              ->  [ALCD],{number}\n\n" +
+              "Button panel needs to have a button setup to run the programmble block,\n" +
+              "the run argument needs to be Cycle,{number}";
 
         // For the airlock
         const string DOOROUTPREFIX         =  "[ADOUT]";
@@ -273,6 +291,8 @@ namespace IngameScript.Scripts.Airlock
 
         public Program()
         {
+            Me.CustomData = USAGEDATA;
+
             Echo("Starting Airlock Procedures....");
 
             List<IMyTextSurface> surfaces = new List<IMyTextSurface>();
