@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Sandbox.ModAPI.Ingame;
 using VRageMath;
 using System;
-using static VRage.Profiler.MyProfilerBlock;
 
 namespace IngameScript.Scripts.AdvancedSorter
 {
