@@ -5,12 +5,6 @@ using VRageMath;
 using System.Linq;
 using System.Text;
 using System;
-using static IngameScript.Turbo.Program;
-using static IngameScript.Scripts.Airlock.Program;
-using System.Diagnostics;
-using EmptyKeys.UserInterface.Generated.DataTemplatesStoreBlock_Bindings;
-using Sandbox.Game.Debugging;
-using Sandbox.Common.ObjectBuilders;
 
 namespace IngameScript.Scripts.Airlock
 {
@@ -98,7 +92,7 @@ namespace IngameScript.Scripts.Airlock
                 string str_doorOut;
                 if (!isHangar) str_doorOut = doorOut == null ? "NO" : "YES";
                 else str_doorOut = hangerDoors == null ? "NO" : "YES";
-                
+
                 string str_doorIn = doorIn == null ? "NO" : "YES";
                 string str_airvent = airvent == null ? "NO" : "YES";
                 string str_statusLCD = statusLCD == null ? "NO" : "YES";
@@ -142,7 +136,7 @@ namespace IngameScript.Scripts.Airlock
 
             private void PressureChangeState(IMyDoor _a, IMyDoor _b, Status _set, bool _hA, bool _hB)
             {
-                if(!_hA) _a.Enabled = false;
+                if (!_hA) _a.Enabled = false;
                 airvent.Depressurize = Depressurize;
 
                 if (CheckProgression())
@@ -166,14 +160,14 @@ namespace IngameScript.Scripts.Airlock
 
             private bool CheckProgression()
             {
-                if(currentStatus == Status.Pressurizing) return progression > 9;
+                if (currentStatus == Status.Pressurizing) return progression > 9;
                 else return progression == 0;
             }
 
             public bool AirlockFailure()
             {
                 bool null1 = doorIn == null;
-                bool null2 = doorOut == null;   
+                bool null2 = doorOut == null;
                 bool null3 = airvent == null;
                 bool null4 = statusLCD == null;
 
@@ -265,7 +259,7 @@ namespace IngameScript.Scripts.Airlock
               " -  1 vent\n" +
               " -  1 lcd\n" +
               " -  1 button panel\n\n" +
-              
+
             "Naming conventions: \n" +
               "number = the number of this airlock, \nand needs to be the same for each block of the airlock\n\n" +
               "Door to outside  ->  [ADOUT],{number}\n" +
@@ -276,13 +270,13 @@ namespace IngameScript.Scripts.Airlock
               "the run argument needs to be Cycle,{number}";
 
         // For the airlock
-        const string DOOROUTPREFIX         =  "[ADOUT]";
-        const string DOORINPREFIX          =  "[ADIN]";
-        const string AIRVENTPREFIX         =  "[AVENT]";
-        const string LCDPREFIX             =  "[ALCD]";
-        const string HANGERPREFIX          =  "[AHANGER]";
-        const string MAINLCDPREFIX         =  "[AMLCD]";
-        const string HANGERIDENTIFIER      =  "[H]";
+        const string DOOROUTPREFIX = "[ADOUT]";
+        const string DOORINPREFIX = "[ADIN]";
+        const string AIRVENTPREFIX = "[AVENT]";
+        const string LCDPREFIX = "[ALCD]";
+        const string HANGERPREFIX = "[AHANGER]";
+        const string MAINLCDPREFIX = "[AMLCD]";
+        const string HANGERIDENTIFIER = "[H]";
 
         IMyTextSurface mainLCD;
 
@@ -309,12 +303,12 @@ namespace IngameScript.Scripts.Airlock
 
         public void Save()
         {
-            
+
         }
 
         public void Main(string argument, UpdateType updateType)
         {
-            if(!overidden) ControlAirlocks(argument, updateType);
+            if (!overidden) ControlAirlocks(argument, updateType);
             ResetEmergencyOverride(argument);
             EmergencyOverride(argument);
             ControlMainLCD(argument);
@@ -381,7 +375,7 @@ namespace IngameScript.Scripts.Airlock
                         airlock.ProcessAirlock();
                         ControlMainLCD("Option");
                     }
-                    if(!string.IsNullOrEmpty(o)) EmergencyOverride($"{OVERRIDECOMMAND}{DELIM}{o}");
+                    if (!string.IsNullOrEmpty(o)) EmergencyOverride($"{OVERRIDECOMMAND}{DELIM}{o}");
                 }
             }
         }
@@ -434,7 +428,7 @@ namespace IngameScript.Scripts.Airlock
 
                             bool isHanger = false;
                             IMyDoor[] doors = null;
-                            if(doorOut.CustomName.Contains(HANGERIDENTIFIER))
+                            if (doorOut.CustomName.Contains(HANGERIDENTIFIER))
                             {
                                 IMyBlockGroup hangerGroup = GridTerminalSystem.GetBlockGroupWithName($"{HANGERPREFIX},{int.Parse(ventID)}");
 
@@ -493,7 +487,7 @@ namespace IngameScript.Scripts.Airlock
         }
 
         // AIRLOCK LCD CONTROL
-        
+
         string[] airlockNames = null;
         string[] airlockSelectionOptions = { "Cycle Airlock", "Override Airlock", "Reset Airlock" };
         string[] options = { "Override Doors", "New Airlocks", "Reset Doors", };
@@ -502,11 +496,11 @@ namespace IngameScript.Scripts.Airlock
         int optionIndex = 0;
         int selectionIndex = 0;
 
-        const string OPTION  =  "Option";
-        const string UP      =  "UP";
-        const string DOWN    =  "DOWN";
-        const string CONFIRM =  "CONFIRM";
-        const string BACK    =  "BACK";
+        const string OPTION = "Option";
+        const string UP = "UP";
+        const string DOWN = "DOWN";
+        const string CONFIRM = "CONFIRM";
+        const string BACK = "BACK";
 
         bool optionSelected = false;
         bool isCommand = false;
@@ -515,7 +509,7 @@ namespace IngameScript.Scripts.Airlock
 
         private void ControlMainLCD(string _arg)
         {
-            if(_arg.Contains(OPTION) && mainLCD != null)
+            if (_arg.Contains(OPTION) && mainLCD != null)
             {
                 string str = "";
                 if (!optionSelected) str = SelectOptions(_arg);
@@ -540,7 +534,7 @@ namespace IngameScript.Scripts.Airlock
                 if (arr[1].Contains(UP))
                 {
                     selectionIndex--;
-                    if (selectionIndex < 0) 
+                    if (selectionIndex < 0)
                         selectionIndex = 0;
                 }
 
@@ -577,7 +571,7 @@ namespace IngameScript.Scripts.Airlock
 
                     return str;
                 }
-                catch { return "ERROR WITH DISPLAYING INFORMATION FOR AIRLOCK"; } 
+                catch { return "ERROR WITH DISPLAYING INFORMATION FOR AIRLOCK"; }
             }
 
 

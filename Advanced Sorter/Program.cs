@@ -80,7 +80,8 @@ namespace IngameScript.Scripts.AdvancedSorter
                         LCDs?.Add(newLCD);
                     }
                 }
-            } catch (Exception ex) { Echo($"Exception {ex.Message}"); }
+            }
+            catch (Exception ex) { Echo($"Exception {ex.Message}"); }
         }
 
         public void Save()
