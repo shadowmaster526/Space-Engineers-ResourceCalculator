@@ -4,7 +4,7 @@ using Sandbox.ModAPI.Ingame;
 using VRageMath;
 using System;
 
-namespace IngameScript.Scripts.AdvancedSorter
+namespace IngameScript
 {
     internal class Program : MyGridProgram
     {

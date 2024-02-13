@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System;
 
-namespace IngameScript.Scripts.Airlock
+namespace IngameScript
 {
     internal class Program : MyGridProgram
     {
@@ -57,7 +57,7 @@ namespace IngameScript.Scripts.Airlock
                 get
                 {
                     if (airvent == null) return ProgressionBarAnimation();
-                    progression = MathHelper.RoundToInt((airvent.GetOxygenLevel() * 10));
+                    progression = MathHelper.RoundToInt(airvent.GetOxygenLevel() * 10);
                     return ProgressionBarAnimation();
                 }
             }
@@ -192,7 +192,7 @@ namespace IngameScript.Scripts.Airlock
             {
                 StringBuilder bar = new StringBuilder("[");
                 bar.Append('=', progression);
-                bar.Append('-', (maxProgression - progression));
+                bar.Append('-', maxProgression - progression);
                 bar.Append("]");
                 return bar.ToString();
             }
