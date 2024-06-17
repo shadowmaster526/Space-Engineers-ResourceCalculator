@@ -109,7 +109,7 @@ namespace IngameScript
 
             // Used to create blueprint recipes in space engineers.
             /*
-                Format for blue print 
+                Format for blueprint 
                 
                 blueprints.Add("[Name of blueprint]", new Component(new List<RequiredMaterial>
                 {
@@ -121,33 +121,188 @@ namespace IngameScript
             blueprints.Add("Superconductor", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Gold", 0.67),
-                new RequiredMaterial("Silver", 0.67),
-                new RequiredMaterial("Titanium", 2.67),
-                new RequiredMaterial("Copper", 1.67)
+                new RequiredMaterial("Iron", 3.33)
             }, "Superconductor"));
             blueprints.Add("Thruster", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Platinum", 0.13),
                 new RequiredMaterial("Gold", 0.33),
-                new RequiredMaterial("Cobalt", 1.67),
-                new RequiredMaterial("Copper", 1.67),
-                new RequiredMaterial("Titanium", 3.33),
-                new RequiredMaterial("Iron", 3.33)
+                new RequiredMaterial("Cobalt", 3.33),
+                new RequiredMaterial("Iron", 10.0)
             }, "ThrustComponent"));
             blueprints.Add("Reactor", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Silver", 1.67),
-                new RequiredMaterial("Copper", 1.67),
-                new RequiredMaterial("Titanium", 5.00),
-                new RequiredMaterial("Aluminium", 1.67),
-                new RequiredMaterial("Iron", 3.33)
+				new RequiredMaterial("Gravel", 6.67),
+                new RequiredMaterial("Iron", 5.0)
             }, "ReactorComponent"));
-            blueprints.Add("RubberTyre", new Component(new List<RequiredMaterial>
+			blueprints.Add("SteelPlate", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("SyntheticRubber", 3.33),
-                new RequiredMaterial("SteelWire", 0.17)
-            }, "Tyre"));
-            blueprints.Add("TorpedoThruster", new Component(new List<RequiredMaterial>
+                new RequiredMaterial("Iron", 7.0)
+            }, "SteelPlate"));
+            blueprints.Add("Girder", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 2.0)
+            }, "Girder"));
+            blueprints.Add("SolarCell", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Nickel", 1.0),
+                new RequiredMaterial("Silicon", 2.0)
+            }, "SolarCell"));
+            blueprints.Add("SmallSteelTube", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1.67)
+            }, "SmallTube"));
+            blueprints.Add("RadioComponent", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Silicon", 0.33),
+                new RequiredMaterial("Iron", 2.67)
+            }, "RadioCommunication"));
+            blueprints.Add("PowerCell", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 3.33),
+                new RequiredMaterial("Silicon", 0.33),
+                new RequiredMaterial("Nickel", 0.67)
+            }, "PowerCell"));
+			blueprints.Add("LargeSteelTube", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 10.0)
+            }, "LargeTube"));
+            blueprints.Add("InteriorPlate", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1.0)
+            }, "InteriorPlate"));
+			blueprints.Add("GravityComp", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Silver", 1.67),
+                new RequiredMaterial("Gold", 3.33),
+                new RequiredMaterial("Cobalt", 73.33),
+                new RequiredMaterial("Iron", 200.0)
+            }, "GravityGeneratorComponent"));
+			blueprints.Add("Computer", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 0.17),
+                new RequiredMaterial("Silicon", 0.07)
+            }, "Computer"));
+            blueprints.Add("ConstructionComp", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 2.67),
+            }, "Construction"));
+            blueprints.Add("DetectorComponent", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1.67),
+                new RequiredMaterial("Nickel", 5.0)
+            }, "DetectionComp"));
+			blueprints.Add("Explosives", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Silicon", 0.17)
+                new RequiredMaterial("MagnesiumPowder", 0.67)
+            }, "Explosives"));
+			blueprints.Add("Motor", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 6.67),
+                new RequiredMaterial("Nickel", 1.67)
+            }, "Motor"));
+            blueprints.Add("MetalGrid", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 4.0),
+                new RequiredMaterial("Nickel", 1.67),
+                new RequiredMaterial("Cobalt", 1.0)
+            }, "MetalGrid"));
+            blueprints.Add("MedicalComp", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 20.0),
+                new RequiredMaterial("Nickel", 23.33),
+                new RequiredMaterial("Silver", 6.67)
+            }, "Medical"));
+			blueprints.Add("Display", new Component(new List<RequiredMaterial>
+            {
+				new RequiredMaterial("Iron", 0.33),
+                new RequiredMaterial("Silicon", 1.67)
+            }, "Display"));
+			blueprints.Add("BulletproofGlass", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Silicon", 5.0)
+            }, "BulletproofGlass"));
+						
+			//Tools and Equipment
+			blueprints.Add("EnhancedWelder", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1.67),
+                new RequiredMaterial("Nickel", 0.33),
+                new RequiredMaterial("Cobalt", 0.07),
+                new RequiredMaterial("Silicon", 0.67)
+            }, "Position0100_Welder2"));
+			blueprints.Add("ProficientWelder", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1.67),
+                new RequiredMaterial("Nickel", 0.33),
+                new RequiredMaterial("Cobalt", 0.07),
+                new RequiredMaterial("Silver", 0.67)
+            }, "Position0110_Welder3"));
+			blueprints.Add("EnhancedGrinder", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1),
+                new RequiredMaterial("Nickel", 0.33),
+                new RequiredMaterial("Cobalt", 0.67),
+                new RequiredMaterial("Silicon", 2)
+            }, "Position0020_AngleGrinder2"));
+			blueprints.Add("ProficientGrinder", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1),
+                new RequiredMaterial("Nickel", 0.33),
+                new RequiredMaterial("Cobalt", 0.33),
+                new RequiredMaterial("Silicon", 0.67),
+                new RequiredMaterial("Silver", 0.67)
+            }, "Position0030_AngleGrinder3"));
+			blueprints.Add("EnhancedHandDrill", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 6.67),
+                new RequiredMaterial("Nickel", 1),
+                new RequiredMaterial("Silicon", 1.67)
+            }, "Position0060_HandDrill2"));
+			blueprints.Add("ProficientHandDrill", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 6.67),
+                new RequiredMaterial("Nickel", 1),
+                new RequiredMaterial("Silicon", 1),
+                new RequiredMaterial("Silver", 0.67)
+            }, "Position0070_HandDrill3"));
+			blueprints.Add("OxygenBottle", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 26.67),
+                new RequiredMaterial("Nickel", 10),
+                new RequiredMaterial("Silicon", 3.33)
+            }, "Position0010_OxygenBottle"));
+			blueprints.Add("HydrogenBottle", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 26.67),
+                new RequiredMaterial("Nickel", 10),
+                new RequiredMaterial("Silicon", 3.33)
+            }, "Position0020_HydrogenBottle"));
+			blueprints.Add("PaintGun", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1.33),
+				new RequiredMaterial("Nickel", 0.33),
+				new RequiredMaterial("Silicon", 0.67)
+            }, "WeaponPaintGun"));
+			blueprints.Add("PaintGunMag", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Gravel", 0.01)
+            }, "PaintGunMag"));
+			blueprints.Add("ConcreteTool", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Iron", 1.67),
+				new RequiredMaterial("Nickel", 0.67),
+				new RequiredMaterial("Silicon", 1)
+            }, "WeaponConcreteTool"));
+			blueprints.Add("ConcreteMix", new Component(new List<RequiredMaterial>
+            {
+                new RequiredMaterial("Gravel", 3.33)
+            }, "ConcreteMix"));
+			
+			//Modded Components
+			blueprints.Add("TorpedoThruster", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Tritanium", 0.11),
                 new RequiredMaterial("Duranium", 0.11),
@@ -176,37 +331,8 @@ namespace IngameScript
                 new RequiredMaterial("MagnesiumPowder", 0.03),
                 new RequiredMaterial("Cobalt", 0.03),
                 new RequiredMaterial("Silver", 0.33),
-                new RequiredMaterial("Gold", 0.33),
+                new RequiredMaterial("Gold", 0.33)
             }, "TorpedoWarhead"));
-            blueprints.Add("GalvanisedWire", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 0.4)
-            }, "SteelWire"));
-            blueprints.Add("SteelPlate", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 7.0)
-            }, "SteelPlate"));
-            blueprints.Add("SteelGirder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Steel", 2.0)
-            }, "SteelGirder"));
-            blueprints.Add("SolarCell", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Nickel", 0.67),
-                new RequiredMaterial("Aluminium", 0.67),
-                new RequiredMaterial("Silicon", 1.67),
-                new RequiredMaterial("Copper", 0.67),
-            }, "SolarCell"));
-            blueprints.Add("SmallSteelTube", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.67)
-            }, "SmallTube"));
-            blueprints.Add("SiliconTyre", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Silicon", 6.67),
-                new RequiredMaterial("SteelWire", 1.67)
-
-            }, "SiTyre"));
             blueprints.Add("FieldEmitter", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Platinum", 2.67),
@@ -215,67 +341,6 @@ namespace IngameScript
                 new RequiredMaterial("Gold", 5.00)
 
             }, "ShieldComponentBP"));
-            blueprints.Add("RadioComponent", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Silicon", 0.33),
-                new RequiredMaterial("Iron", 2.00),
-                new RequiredMaterial("Copper", 1.67)
-
-            }, "RadioCommunication"));
-            blueprints.Add("PowerCell", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.67),
-                new RequiredMaterial("Silicon", 0.33),
-                new RequiredMaterial("Nickel", 2.67),
-                new RequiredMaterial("Copper", 0.67)
-
-            }, "PowerCell"));
-            blueprints.Add("Polycarbonate", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Plastic", 1.67),
-                new RequiredMaterial("Silicon", 0.67)
-            }, "Polycarbonate"));
-            blueprints.Add("ElectrMagnet", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.33),
-                new RequiredMaterial("Nickel", 1.33),
-                new RequiredMaterial("Cobalt", 1.33)
-            }, "Magnet"));
-            blueprints.Add("LithiumSulfurPowerCell", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Aluminium", 0.67),
-                new RequiredMaterial("Lithium", 0.67),
-                new RequiredMaterial("Sulfur", 0.67),
-                new RequiredMaterial("Cobalt", 0.33),
-                new RequiredMaterial("GoldWire", 0.07),
-            }, "LiSCell"));
-            blueprints.Add("LithiumIonPowerCell", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Aluminium", 0.67),
-                new RequiredMaterial("Lithium", 1.33),
-                new RequiredMaterial("Cobalt", 0.33),
-                new RequiredMaterial("CopperWire", 0.07),
-            }, "LiFePo4Cell"));
-            blueprints.Add("LightEmittingDiode", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Gallium", 0.67),
-                new RequiredMaterial("Plastic", 1.33),
-                new RequiredMaterial("CopperWire", 0.33),
-            }, "LightEmittingDiode"));
-            blueprints.Add("LargeSteelTube", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 10.00)
-            }, "LargeTube"));
-            blueprints.Add("InteriorPlate", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 0.67),
-                new RequiredMaterial("Aluminium", 0.33)
-            }, "InteriorPlate"));
-            blueprints.Add("Heatsink", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Copper", 0.33),
-                new RequiredMaterial("Aluminium", 0.67)
-            }, "Heatsink"));
             blueprints.Add("HackingChip", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Platinum", 0.30),
@@ -283,102 +348,20 @@ namespace IngameScript
                 new RequiredMaterial("Gold", 0.53),
                 new RequiredMaterial("Silicon", 0.90)
             }, "HackingChip"));
-            blueprints.Add("GravityComp", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Silver", 1.67),
-                new RequiredMaterial("Gold", 3.33),
-                new RequiredMaterial("Copper", 13.33),
-                new RequiredMaterial("Aluminium", 16.67),
-                new RequiredMaterial("Cobalt", 16.67),
-                new RequiredMaterial("Iron", 66.67),
-                new RequiredMaterial("Titanium", 100.00)
-            }, "GravityGeneratorComponent"));
-            blueprints.Add("GoldWire", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Gold", 0.33),
-                new RequiredMaterial("Plastic", 0.01),
-            }, "GoldWire"));
-            blueprints.Add("TemperedGlass", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Silicon", 5.0)
-            }, "TemperedGlass"));
-            blueprints.Add("AdvancedCircuit", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Silicon", 1.33),
-                new RequiredMaterial("Plastic", 1.33),
-                new RequiredMaterial("GoldWire", 0.07),
-            }, "Circuit"));
             blueprints.Add("TitaniumCompositePlate", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Titanium", 1.0),
-                new RequiredMaterial("DepletedUranium", 0.07),
+                new RequiredMaterial("DepletedUranium", 0.07)
             }, "TitaniumCompositePlate"));
-            blueprints.Add("Computer", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 0.07),
-                new RequiredMaterial("Silicon", 0.13),
-                new RequiredMaterial("Copper", 0.07),
-            }, "Computer"));
-            blueprints.Add("ConstructionComp", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 2.67),
-            }, "Construction"));
-            blueprints.Add("CopperWire", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Copper", 0.33),
-                new RequiredMaterial("Plastic", 0.01),
-            }, "CopperWire"));
-            blueprints.Add("10GHzCPU", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Gallium", 0.67),
-                new RequiredMaterial("Copper", 0.33),
-                new RequiredMaterial("Aluminium", 0.67)
-            }, "CPU"));
-            blueprints.Add("DetectorComponent", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.67),
-                new RequiredMaterial("Copper", 2.67),
-                new RequiredMaterial("Nickel", 2.67)
-            }, "DetectionComp"));
             blueprints.Add("DilithiumMatrix", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Dilithium", 1.0)
             }, "DilithiumMatrix"));
-            blueprints.Add("Display", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Aluminium", 0.67),
-                new RequiredMaterial("Copper", 0.67),
-                new RequiredMaterial("Silicon", 1.67)
-            }, "Display"));
             blueprints.Add("DuraniumGrid", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Duranium", 0.33)
             }, "DuraniumGrid"));
-            blueprints.Add("Explosives", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Lithium", 0.33),
-                new RequiredMaterial("Gunpowder", 0.33),
-                new RequiredMaterial("Uranium", 0.07),
-                new RequiredMaterial("Plutonium", 0.07),
-            }, "Explosives"));
-            blueprints.Add("FlashPowder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("PotassiumPowder", 0.10),
-                new RequiredMaterial("ChlorinePowder", 0.10),
-                new RequiredMaterial("Aluminium", 0.07),
-                new RequiredMaterial("MagnesiumPowder", 0.07),
-            }, "FlashPowder"));
-            blueprints.Add("GaAsSolarCell", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Gallium", 1.0),
-                new RequiredMaterial("Aluminium", 0.67),
-                new RequiredMaterial("Silicon", 1.33),
-                new RequiredMaterial("Copper", 0.67),
-            }, "GaAsSolarCell"));
-            blueprints.Add("Girder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 2.0)
-            }, "Girder"));
+
             blueprints.Add("NeuralTransceiver", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Nickel", 5.0),
@@ -388,132 +371,11 @@ namespace IngameScript
                 new RequiredMaterial("Gravel", 6.0),
                 new RequiredMaterial("Iron", 33.33)
             }, "NeuralTransceiver"));
-            blueprints.Add("Motor", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.67),
-                new RequiredMaterial("Nickel", 4.0),
-                new RequiredMaterial("Copper", 3.33)
-            }, "Motor"));
-            blueprints.Add("MetalGrid", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 4.0),
-                new RequiredMaterial("Nickel", 1.67),
-                new RequiredMaterial("Cobalt", 1.0)
-            }, "MetalGrid"));
-            blueprints.Add("MedicalComp", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Copper", 6.67),
-                new RequiredMaterial("Aluminium", 3.33),
-                new RequiredMaterial("Lithium", 3.33),
-                new RequiredMaterial("Silver", 6.67),
-                new RequiredMaterial("Iron", 13.33),
-                new RequiredMaterial("Nickel", 13.33)
-            }, "Medical"));
-	    blueprints.Add("TritaniumPlate", new Component(new List<RequiredMaterial>
+			blueprints.Add("TritaniumPlate", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Tritanium", 3.33),
             }, "TritaniumPlate"));
-	    blueprints.Add("PaintGun", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.33),
-				new RequiredMaterial("Nickel", 0.33),
-				new RequiredMaterial("Silicon", 0.67),
-            }, "WeaponPaintGun"));
-		blueprints.Add("PaintGunMag", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Gravel", 0.01),
-            }, "PaintGunMag"));
-		blueprints.Add("ConcreteTool", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.67),
-				new RequiredMaterial("Nickel", 0.67),
-				new RequiredMaterial("Silicon", 1),
-            }, "WeaponConcreteTool"));
-		blueprints.Add("ConcreteMix", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Gravel", 3.33),
-            }, "ConcreteMix"));
-	    blueprints.Add("Petrol_Gasoline", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Oil", 1.2),
-            }, "Petroleum"));
-	    blueprints.Add("Plastic", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Oil", 1.2),
-            }, "Plastic"));
-	    blueprints.Add("SyntheticRubber", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Oil", 1),
-                new RequiredMaterial("Silicon", 0.2),
-                new RequiredMaterial("Carbon", 0.2),
-            }, "Rubber"));
-	    blueprints.Add("DepletedUranium_Plutonium", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("SpentFuel", 1.5),
-                new RequiredMaterial("Ice", 2),
-                new RequiredMaterial("Sulfur", 1),
-            }, "WasteTreatment"));
-	    blueprints.Add("Gunpowder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Nitre", 0.17),
-                new RequiredMaterial("Carbon", 0.1),
-                new RequiredMaterial("Sulfur", 0.07),
-            }, "Gunpowder"));
-	    blueprints.Add("EnhancedWelder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.67),
-                new RequiredMaterial("Nickel", 0.33),
-                new RequiredMaterial("Cobalt", 0.07),
-                new RequiredMaterial("Silicon", 0.67),
-            }, "Position0100_Welder2"));
-	    blueprints.Add("ProficientWelder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1.67),
-                new RequiredMaterial("Nickel", 0.33),
-                new RequiredMaterial("Cobalt", 0.07),
-                new RequiredMaterial("Silver", 0.67),
-            }, "Position0110_Welder3"));
-	    blueprints.Add("EnhancedGrinder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1),
-                new RequiredMaterial("Nickel", 0.33),
-                new RequiredMaterial("Cobalt", 0.67),
-                new RequiredMaterial("Silicon", 2),
-            }, "Position0020_AngleGrinder2"));
-	    blueprints.Add("ProficientGrinder", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 1),
-                new RequiredMaterial("Nickel", 0.33),
-                new RequiredMaterial("Cobalt", 0.33),
-                new RequiredMaterial("Silicon", 2),
-                new RequiredMaterial("Silver", 0.67),
-            }, "Position0030_AngleGrinder3"));
-	    blueprints.Add("EnhancedHandDrill", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 6.67),
-                new RequiredMaterial("Nickel", 1),
-                new RequiredMaterial("Silicon", 1.67),
-            }, "Position0060_HandDrill2"));
-	    blueprints.Add("ProficientHandDrill", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 6.67),
-                new RequiredMaterial("Nickel", 1),
-                new RequiredMaterial("Silicon", 1),
-                new RequiredMaterial("Silver", 0.67),
-            }, "Position0070_HandDrill3"));
-	    blueprints.Add("OxygenBottle", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 26.67),
-                new RequiredMaterial("Nickel", 10),
-                new RequiredMaterial("Silicon", 3.33),
-            }, "Position0010_OxygenBottle"));
-	    blueprints.Add("HydrogenBottle", new Component(new List<RequiredMaterial>
-            {
-                new RequiredMaterial("Iron", 26.67),
-                new RequiredMaterial("Nickel", 10),
-                new RequiredMaterial("Silicon", 3.33),
-            }, "Position0020_HydrogenBottle"));
-		blueprints.Add("TranswarpCoil", new Component(new List<RequiredMaterial>
+			blueprints.Add("TranswarpCoil", new Component(new List<RequiredMaterial>
             {
                 new RequiredMaterial("Iron", 0.33),
                 new RequiredMaterial("Nickel", 0.33),
@@ -523,7 +385,7 @@ namespace IngameScript
                 new RequiredMaterial("Silicon", 0.33),
                 new RequiredMaterial("MagnesiumPowder", 0.33),
                 new RequiredMaterial("Platinum", 0.33),
-                new RequiredMaterial("Uranium", 0.33),
+                new RequiredMaterial("Uranium", 0.33)
             }, "TranswarpCoil"));
             blueprints.Add("Torpedo_Casing", new Component(new List<RequiredMaterial>
             {
@@ -536,7 +398,7 @@ namespace IngameScript
 				new RequiredMaterial("MagnesiumPowder", 0.08),
 				new RequiredMaterial("Cobalt", 0.08),
 				new RequiredMaterial("Silver", 0.03),
-				new RequiredMaterial("Gold", 0.03),
+				new RequiredMaterial("Gold", 0.03)
             }, "Torpedo_Casing"));
 	    blueprints.Add("Torpedo_Fuel_Cell", new Component(new List<RequiredMaterial>
             {
@@ -549,7 +411,7 @@ namespace IngameScript
 				new RequiredMaterial("MagnesiumPowder", 0.11),
 				new RequiredMaterial("Cobalt", 0.11),
 				new RequiredMaterial("Silver", 0.08),
-				new RequiredMaterial("Gold", 0.08),
+				new RequiredMaterial("Gold", 0.08)
             }, "Torpedo_Fuel_Cell"));
 	    blueprints.Add("Torpedo_Guidance", new Component(new List<RequiredMaterial>
             {
@@ -562,7 +424,7 @@ namespace IngameScript
 				new RequiredMaterial("MagnesiumPowder", 0.17),
 				new RequiredMaterial("Cobalt", 0.17),
 				new RequiredMaterial("Silver", 0.11),
-				new RequiredMaterial("Gold", 0.11),
+				new RequiredMaterial("Gold", 0.11)
             }, "Torpedo_Guidance"));
         }
         public void Save()
