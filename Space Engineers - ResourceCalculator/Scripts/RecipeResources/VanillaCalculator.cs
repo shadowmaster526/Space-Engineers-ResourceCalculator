@@ -195,7 +195,7 @@ namespace IngameScript
             }, "DetectionComp"));
 	    blueprints.Add("Explosives", new Component(new List<RequiredMaterial>
             {
-                new RequiredMaterial("Silicon", 0.17)
+                new RequiredMaterial("Silicon", 0.17),
                 new RequiredMaterial("MagnesiumPowder", 0.67)
             }, "Explosives"));
 	    blueprints.Add("Motor", new Component(new List<RequiredMaterial>
